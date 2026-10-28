@@ -1,0 +1,13 @@
+{
+ "listen":{"host":"127.0.0.1","port":21000},
+ "upstreams":[
+  {"id":"codex-provider","baseUrl":"http://127.0.0.1:20128/v1","apiKeyEnv":"PTK_CODEX_UPSTREAM_KEY","enabled":true,"timeoutMs":120000},
+  {"id":"ag-provider","baseUrl":"http://127.0.0.1:20128/v1","apiKeyEnv":"PTK_AG_UPSTREAM_KEY","enabled":true,"timeoutMs":120000}
+ ],
+ "profiles":[
+  {"id":"codex","enabled":true,"allow":["cx/*"],"upstreams":["codex-provider"],"strategy":"priority"},
+  {"id":"antigravity","enabled":true,"allow":["ag/*"],"upstreams":["ag-provider"],"strategy":"priority"},
+  {"id":"cursor","enabled":true,"allow":["ag/*"],"upstreams":["ag-provider"],"strategy":"priority"}
+ ],
+ "aliases":{"gpt-6.1-sol":"cx/gpt-6.1-sol","gemini-3.8-flash-high":"ag/gemini-3.8-flash-high","claude-sonnet-4.6":"ag/claude-sonnet-4-6","claude-opus-4.6":"ag/claude-opus-4-6-thinking"}
+}

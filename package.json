@@ -1,0 +1,22 @@
+{
+  "name": "ptk-proxy-tools",
+  "version": "1.0.0",
+  "private": true,
+  "description": "PTK Proxy Tools - local AI routing control center",
+  "type": "module",
+  "scripts": {
+    "start": "node src/run.cjs src/launch.js",
+    "setup": "node scripts/engine.mjs setup",
+    "build": "node src/run.cjs scripts/engine.mjs build",
+    "cli": "node src/run.cjs src/cli.js",
+    "check": "node --check src/run.cjs && node --check src/launch.js && node --check src/cli.js && node --check src/server.js && node --check engine/custom-server.js && node --check engine/src/mitm/targetResolver.js && node --check engine/src/mitm/server.js && node --check engine/src/mitm/dns/dnsConfig.js",
+    "test": "node --test test/router.test.js",
+    "test:engine": "node src/run.cjs engine/node_modules/vitest/vitest.mjs run --root engine/tests --config vitest.config.js unit/key-access.test.js unit/key-access-handlers.test.js unit/key-access-migration.test.js unit/ptk-provider-scope.test.js unit/antigravity-mitm.test.js unit/mitm-root-ca.test.js unit/antigravity-quota-routing.test.js unit/combo-request-scoped-fallback.test.js unit/embedding-usage-persistence.test.js unit/ptk-mitm-dns.test.js unit/codex-profiles.test.js unit/codex-current-provider-base-url.test.js unit/codex-settings-refresh.test.js",
+    "start:gateway": "node src/server.js",
+    "smoke:start": "node src/run.cjs scripts/start-smoke.mjs",
+    "test:smoke": "node src/run.cjs scripts/smoke.mjs"
+  },
+  "engines": {
+    "node": ">=22.13.0"
+  }
+}

@@ -1,0 +1,11 @@
+node_modules/
+data/
+config.json
+*.log
+*.bak*
+.env
+engine/.next/
+engine/.env*
+!engine/.env.example
+engine/tests/__baseline__/
+engine/.git/

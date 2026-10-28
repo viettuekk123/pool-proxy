@@ -1,0 +1,5 @@
+{
+  "port": 21000,
+  "dataDir": "data/engine",
+  "mitmDns": "google-doh"
+}

@@ -1,0 +1,7 @@
+{
+  "source": "https://github.com/decolua/9router",
+  "revision": "1fe586bb1cf35e1ed0cb2150a8ef7d1db040b21d",
+  "license": "MIT",
+  "vendoredAt": "2026-10-28",
+  "note": "PTK local fork; attribution retained in engine/LICENSE"
+}
