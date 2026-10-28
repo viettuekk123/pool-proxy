@@ -2,6 +2,8 @@
 
 Trung tâm điều khiển router AI chạy local trên Windows. Bản 1.0 dùng engine đầy đủ được fork từ mã nguồn MIT, bổ sung thiết lập tập trung và tách provider theo ứng dụng. Tên sản phẩm là **PTK Proxy Tools**; thông tin nguồn và giấy phép nằm trong `UPSTREAM.json`, `THIRD_PARTY_NOTICES.json` và `engine/LICENSE`.
 
+Hướng dẫn đầy đủ bằng tiếng Việt: [docs/README.vi.md](docs/README.vi.md). README này giữ phần quick start để mở app nhanh.
+
 ## Mở hằng ngày
 
 1. Mở `start.cmd` trong thư mục dự án, giữ cửa sổ đó chạy.
@@ -55,9 +57,9 @@ Quota chính thức phụ thuộc từng provider. Usage local và chi phí theo
 
 Vào **CLI Tools → Codex**. Chọn endpoint PTK, key **PTK · Codex**, model `cx/<model-id>` và Apply. Cấu hình sinh ra dùng `model_provider = "ptk"`, `wire_api = "responses"` và Authorization header. PTK sao lưu `config.toml.ptk-backup-<timestamp>` trước khi áp dụng/reset; không sửa `auth.json` đăng nhập.
 
-File chính: `%USERPROFILE%\.codex\config.toml`. Project tin cậy có thể có `.codex/config.toml` ghi đè cấu hình user; chat cũ cũng có metadata provider riêng. Dùng chat mới để kiểm tra sau khi chuyển. Reset chỉ gỡ section provider PTK, giữ các section provider khác; khôi phục file backup nếu muốn quay lại toàn bộ cấu hình trước đó.
+File chính: `%USERPROFILE%\.codex\config.toml`. Cấu hình provider đặt ở user config; bản Codex hiện tại bỏ qua `model_provider`/`model_providers` trong project config, dù project tin cậy vẫn có thể ghi đè một số giá trị như model. Chat cũ có thể có metadata provider riêng; dùng chat mới để kiểm tra sau khi chuyển. Reset chỉ gỡ section provider PTK, giữ các section provider khác; khôi phục file backup nếu muốn quay lại toàn bộ cấu hình trước đó. Nếu dùng `CODEX_HOME` riêng, đối chiếu đường dẫn vì PTK hiện ghi vào thư mục mặc định.
 
-Tài liệu cấu hình: https://developers.openai.com/codex/config-advanced
+Tài liệu cấu hình: [OpenAI Docs — Advanced Configuration](https://learn.chatgpt.com/docs/config-file/config-advanced).
 
 ### Antigravity desktop
 
@@ -67,7 +69,7 @@ Tài liệu cấu hình: https://developers.openai.com/codex/config-advanced
 4. Start MITM, kiểm tra Cert/Trusted/Server. Bật DNS cho **Antigravity**.
 5. Mở lại Antigravity, gửi một câu ngắn; xem Usage để xác nhận provider/account thực tế.
 
-PTK lưu key MITM theo ID, không lấy key đầu danh sách sau restart. Chỉ gỡ các dòng hosts có marker `# PTK-Proxy-Tools`; quy tắc của router khác phải được tắt bằng router đó. Dùng Stop MITM/Disable DNS để về kết nối trực tiếp. CA của PTK tách riêng với tên **PTK Proxy Tools MITM Root CA**.
+PTK lưu key MITM theo ID, không lấy key đầu danh sách sau restart. Chỉ gỡ các dòng hosts có marker `# PTK-Proxy-Tools`; quy tắc của router khác phải được tắt bằng router đó. Disable DNS rồi Stop MITM trước khi đóng PTK để về kết nối trực tiếp. CA của PTK tách riêng với tên **PTK Proxy Tools MITM Root CA**.
 
 **DNS:** `google-doh` đã được chọn theo sự cho phép của người dùng. Nó resolve upstream qua `https://dns.google/resolve`, có timeout và cache; tên miền upstream được gửi tới Google DNS. Đây là DNS cho proxy nối tới máy chủ thật, không phải đổi DNS của toàn Windows. Có thể chọn lại DNS hệ thống trong Thiết lập local rồi restart PTK.
 
@@ -132,7 +134,7 @@ npm run cli -- bootstrap
 | 429/quota | Tài khoản/provider thực tế, Quota Tracker và Usage; scope không tăng quota |
 | Antigravity mất mạng | Domain bị chuyển về 127.0.0.1 nhưng MITM443 chưa chạy; bật lại MITM hoặc Disable DNS đúng router |
 | DNS UDP timeout | Chọn Google DNS qua HTTPS cho MITM, restart PTK |
-| Đổi model vẫn vào provider cũ | Cấu hình app/project/chat đang ghi đè; kiểm tra request trong Usage |
+| Đổi model vẫn vào provider cũ | Kiểm tra user config/profile/chat; project có thể ghi đè model; đối chiếu request trong Usage |
 | Thiếu công cụ nén | Tắt adapter ngoài hoặc cài đúng dependency theo Token Saver |
 
 ## Kiểm thử
